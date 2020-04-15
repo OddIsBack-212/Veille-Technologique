@@ -18,5 +18,5 @@ class ScraperController extends AbstractController
         ]);
     }
 
-   
+
 }
