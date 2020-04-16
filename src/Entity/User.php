@@ -48,6 +48,18 @@ class User implements UserInterface
      */
     private $dateDeNaissance;
 
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid('', true));
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,5 +172,21 @@ class User implements UserInterface
         $this->dateDeNaissance = $dateDeNaissance;
 
         return $this;
+    }
+
+    // serialize and unserialize must be updated - see below
+    public function serialize()
+    {
+        return serialize(array(
+            // ...
+            $this->isActive,
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list (
+            // ...
+            $this->isActive,
+            ) = unserialize($serialized);
     }
 }
