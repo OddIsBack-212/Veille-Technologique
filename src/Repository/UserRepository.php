@@ -39,15 +39,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function loadUserByUsername($username)
     {
-        try {
-            return $this->createQueryBuilder('u')
-                ->where('u.username = :username OR u.email = :email')
-                ->setParameter('username', $username)
-                ->setParameter('email', $username)
-                ->getQuery()
-                ->getOneOrNullResult();
-        } catch (NonUniqueResultException $e) {
+
+        return $this->createQueryBuilder('u')
+            ->where('u.prenom = prenom OR u.mail = :mail')
+            ->setParameter('prenom', $username)
+            ->setParameter('email', $username)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+    }
+
+    public function checkMail($mail)
+    {
+        $case = 0;
+        if (preg_match("/@eni-ecole.fr/i", strval($mail)) && false !== filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            $case = 1;
+        } elseif (preg_match("/@campus-eni.fr/i", strval($mail)) && false !== filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            $case = 2;
+        } else {
+            $case = 3;
         }
+        return $case;
     }
 
     // /**
@@ -67,15 +79,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     */
 
-    /*
+
     public function findOneBySomeField($value): ?User
     {
+
+
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+            ->andWhere('u.formateur = :true')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
 }

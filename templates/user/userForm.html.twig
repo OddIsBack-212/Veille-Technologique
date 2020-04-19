@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <h3>S'inscrire</h3>
+
+    <div class="row">
+        <div class="col-8 offset-2">
+
+            {{ form_start(userForm) }}
+
+            {{ form_label(userForm.prenom) }}
+            {{ form_widget(userForm.prenom) }}
+
+            {{ form_label(userForm.nom) }}
+            {{ form_widget(userForm.nom) }}
+
+            {{ form_label(userForm.mail) }}
+            {{ form_widget(userForm.mail) }}
+
+            {{ form_label(userForm.plainPassword.first) }}
+            {{ form_widget(userForm.plainPassword.first) }}
+
+            {{ form_label(userForm.plainPassword.second) }}
+            {{ form_widget(userForm.plainPassword.second) }}
+
+            {{ form_label(userForm.dateDeNaissance) }}
+            {{ form_widget(userForm.dateDeNaissance) }}
+
+
+
+
+
+            {#      bouton ENREGISTRER(les modifications) - bouton ANNULER( retour Accueil)      #}
+            <div class="buttonUserForm">
+                <a href="{{ path('app_login') }}" class="btn btn-primary btn-lg active" role="button"
+                   type="submit">Retour</a>
+                <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
+            </div>
+
+            {{ form_end(userForm) }}
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });</script>{% endblock %}

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -34,6 +34,29 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $plainPassword;
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     * @return User
+     */
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
      * @ORM\Column(type="string", length=50)
      */
     private $prenom;
@@ -42,16 +65,38 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
+    
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateDeNaissance;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @return mixed
+     */
+    public function getDateDeNaissance()
+    {
+        return $this->dateDeNaissance;
+    }
+
+    /**
+     * @param mixed $dateDeNaissance
+     */
+    public function setDateDeNaissance($dateDeNaissance): void
+    {
+        $this->dateDeNaissance = $dateDeNaissance;
+    }
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean", nullable= true)
      */
     private $isActive;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $formateur ;
 
     public function __construct()
     {
@@ -84,7 +129,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->mail;
+        return (string)$this->mail;
     }
 
     /**
@@ -111,7 +156,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -162,17 +207,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDateDeNaissance(): ?\DateTimeInterface
-    {
-        return $this->dateDeNaissance;
-    }
 
-    public function setDateDeNaissance(\DateTimeInterface $dateDeNaissance): self
-    {
-        $this->dateDeNaissance = $dateDeNaissance;
-
-        return $this;
-    }
 
     // serialize and unserialize must be updated - see below
     public function serialize()
@@ -182,6 +217,7 @@ class User implements UserInterface
             $this->isActive,
         ));
     }
+
     public function unserialize($serialized)
     {
         list (
@@ -189,4 +225,19 @@ class User implements UserInterface
             $this->isActive,
             ) = unserialize($serialized);
     }
+
+
+
+    public function getFormateur(): ?array
+    {
+        return $this->formateur;
+    }
+    public function setFormateur(bool $formateur)
+    {
+        $this->formateur=$formateur;
+
+        return $this;
+    }
+
+    //public function
 }

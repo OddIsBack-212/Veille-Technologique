@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <h3> Details profil</h3>
+
+    <table class="userTable table table-borderless">
+        <tr>
+            <th scope="col">Prénom :</th>
+            <td>{{ user.prenom }}</td>
+        </tr>
+        <tr>
+            <th scope="col">Nom :</th>
+            <td>{{ user.nom }}</td>
+        </tr>
+        <tr>
+            <th scope="col">Mail :</th>
+            <td>{{ user.mail }}</td>
+        </tr>
+        <tr>
+            <th scope="col">Mail :</th>
+            <td>{{ user.mail }}</td>
+        </tr>
+    </table>
+    <div class="buttonUserDetails">
+        <a class="btn btn-primary buttonUserDetails" href="{{ path('main') }}" role="button">Retour</a>
+    </div>
+    <!--subscriber / listener
+    create subscriber class implements EventSubscriber
+    config in yaml service
+    App\\:
+    tags:''
+    in the class
+    getSubscribedEvent() : a group oh methods
+    view of methodsDetails
+    -->
+{% endblock %}
